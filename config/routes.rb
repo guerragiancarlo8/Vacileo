@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  get '/' => 'game#index'
+  devise_for :users
+  get '/' => 'users#index'
+  get '/users/:id' => 'users#user_page'
+  get '/game' => 'game#index'
 end
