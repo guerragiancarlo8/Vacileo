@@ -1,9 +1,14 @@
 body {
-    /*background: #202020;*/
+    background: #f5f5f5 !important;
 }
 
 canvas {
     display: block;
+}
+
+.recentlyplayed{
+	height:193.5px;
+	width:416px;
 }
 
 
@@ -14,4 +19,21 @@ canvas {
 
 #overlapping canvas {
     margin: -600px 0 0;
+}
+
+.overlay{
+	position:absolute; 
+	z-index:1;
+	margin-top:-150px;
+	margin-left:150px;
+	margin-right:150px;
+}
+
+.navbar-default{
+	background-color: #add8e6 !important;
+}
+
+canvas{
+	margin-left:50px;
+	margin-top:20px;
 }

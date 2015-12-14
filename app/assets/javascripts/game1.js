@@ -8,6 +8,8 @@ var ctxDead = canvasDead.getContext("2d");
 var ctxTest = canvasTest.getContext("2d");
 var canvasEntities = document.getElementById("canvasEntities2");
 var ctxEntities = canvasEntities.getContext("2d");
+var saveButton = document.getElementById("savebutton");
+var reloadButton = document.getElementById('reloadbutton');
 var requestAnimFrame =  window.requestAnimationFrame ||
                         window.webkitRequestAnimationFrame ||
                         window.mozRequestAnimationFrame ||
@@ -43,6 +45,28 @@ function loadSpriteSheets(){
     spritesheet_zombie_die = new SpriteSheet('/assets/zombie_die.png',200,300,7,8,ctxEntities,false);
 }
 
+saveButton.addEventListener("click",function(){
+    
+    if(golem.isDead){
+        $.ajax({
+            type:'POST',
+            url:"/save/1",
+            dataType: "json",
+            data: {score_obtained: score},
+            success: function(response){
+                console.log('eje')
+            },
+            error: function(response){
+                console.log(response)
+            }
+        })
+    }
+})
+
+
+
+
+
 var seconds = 0
 var isPlaying = true;
 var eje = new Image();
@@ -60,6 +84,7 @@ function randomRange(min,max){
     return Math.floor(Math.random() * (max + 1 - min)) + min;
 }
 
+
 function setTime(){
     ++seconds;
     clearCtx(ctxSeconds);
@@ -73,13 +98,14 @@ function init(){
     initZombies(5);
     begin();
 
+
 }
 
 function initZombies(howmany){
     for(var pf = 0; pf<howmany; pf++){
         a = randomRange(0,canvasEntities.width)
         if(a > canvasEntities.width/2){
-            a = canvasEntities.width - randomRange(0,400);
+            a = canvasEntities.width - 150;
             zombies[pf] = new Zombie(a,spritesheet_zombie_walk_left);
             if(collision(golem,zombies[pf])){
                 console.log('colision')
@@ -97,6 +123,7 @@ function initZombies(howmany){
     console.log(zombies);
 }
 function begin(){
+    golem.isDead = false;
     ctxTest.drawImage(back,0,200,canvasTest.width,canvasTest.height,0,0,canvasTest.width,canvasTest.height);
     isPlaying = true;
     requestAnimFrame(loop);
@@ -119,8 +146,18 @@ function exit(){
     spritesheetgolemdie.update();
     spritesheetgolemdie.draw(golem.drawX,canvasDead.height/8);
     i++;
+    golem.isDead = true;
+    
     //console.log(i); 
 }
+
+//enable reload butto
+reloadButton.addEventListener("click",function(){
+    if(golem.isDead){
+        //reset golem to start position
+        location.reload();
+    }
+});
 
 function update(){
     for(var z = 0; z<zombies.length; z++){
@@ -233,6 +270,7 @@ function Golem(){
     this.isRightKey = false;
     this.isSpacebar = false;
     this.isShooting = false;
+    this.isDead = false;
     this.spritesheet = spritesheetgolemleft;
     this.animate = function(){
         //console.log('sigue animando golem')
@@ -316,7 +354,7 @@ function Zombie(drawX, spritesheet){
     this.height = 312;
     this.drawX = drawX;
     this.drawY = canvasEntities.height/3
-    this.speed = 1;
+    this.speed = randomRange(1,3);
     this.spritesheet = spritesheet;
     this.isDead = false;
     this.animate = function(){
