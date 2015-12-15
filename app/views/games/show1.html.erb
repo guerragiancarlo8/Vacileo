@@ -1,4 +1,10 @@
-<!-- la última batalla sin usuario conectado -->
+<!-- la última batalla usuario conectado -->
+<% if !@selected_game.nil? %>
+	<% @selected_game.each do |g| %>
+		<p id="saved-score"><%=g.score%></p>
+	<%end%>
+<%end%>
+
 <audio autoplay loop>
     <source src="/assets/finalMarch.mp3" type="audio/mpeg">
 </audio>
@@ -10,3 +16,14 @@
     <canvas id="canvasScore" width="1280" height = "600"></canvas>
     <canvas id="canvasSeconds" width="1280" height = "600"></canvas>
 </div>
+
+
+<button id="savebutton" type="submit"> Guardar Partida </button>
+<button id="reloadbutton" type="submit"> Reiniciar </button>
+<script src="/assets/game1.js"></script>
+
+<% @leaderboard.each do |l| %>
+	<p> <%= l.score %> </p>
+	<p> <%= l.user_id %> </p>
+<%end%>
+

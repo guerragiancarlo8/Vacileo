@@ -1,0 +1,19 @@
+<% if !@selected_game.nil? %>
+	<% @selected_game.each do |g| %>
+		<p id="saved-score"><%=g.score%></p>
+	<%end%>
+<%end%>
+<canvas id="canvasBg" width="800" height="600"></canvas>
+
+<div id="overlapping">
+    <canvas id="canvasEntities" width="800" height="600"></canvas>
+</div>
+
+<button id="savebutton" type="submit"> Guardar Partida </button>
+<button id="reloadbutton" type="submit"> Reiniciar </button>
+<script src="/assets/game2.js"></script>
+
+<% @leaderboard.each do |l| %>
+	<p> <%= l.score %> </p>
+	<p> <%= l.user_id %> </p>
+<%end%>

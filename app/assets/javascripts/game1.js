@@ -34,6 +34,18 @@ var back = new Image(),
     score = 0,
     count;
 
+if(document.getElementById("saved-score")){
+    console.log('eje')
+    var scoreTag = document.getElementById("saved-score").innerText;
+    console.log(scoreTag)
+    if(parseInt(scoreTag) != 0){
+        score = parseInt(scoreTag)
+    }
+    else{
+        score = 0;
+    }
+}
+
 function loadSpriteSheets(){
     spritesheetgolemleft = new SpriteSheet('/assets/golem_walkleft.png',470,360,1500,6,ctxEntities,false);
     spritesheetgolemright = new SpriteSheet('/assets/golem_walkright.png',470,360,1500,6,ctxEntities,false);
@@ -45,25 +57,34 @@ function loadSpriteSheets(){
     spritesheet_zombie_die = new SpriteSheet('/assets/zombie_die.png',200,300,7,8,ctxEntities,false);
 }
 
-saveButton.addEventListener("click",function(){
-    
-    if(golem.isDead){
-        $.ajax({
-            type:'POST',
-            url:"/save/1",
-            dataType: "json",
-            data: {score_obtained: score},
-            success: function(response){
-                console.log('eje')
-            },
-            error: function(response){
-                console.log(response)
-            }
-        })
-    }
-})
+if(saveButton){
+    saveButton.addEventListener("click",function(){
+        if(golem.isDead){
+            $.ajax({
+                type:'POST',
+                url:"/games/1/game_sessions",
+                dataType: "json",
+                data: {score_obtained: score},
+                success: function(response){
+                    console.log('eje')
+                },
+                error: function(response){
+                    console.log(response)
+                }
+            })
+        }
+    })
+
+}
 
 
+function getScore(){
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/"
+    })
+} 
 
 
 
@@ -151,13 +172,17 @@ function exit(){
     //console.log(i); 
 }
 
-//enable reload butto
-reloadButton.addEventListener("click",function(){
-    if(golem.isDead){
-        //reset golem to start position
-        location.reload();
-    }
-});
+//enable reload button if it exists
+if(reloadButton){
+
+    reloadButton.addEventListener("click",function(){
+        if(golem.isDead){
+            //reset golem to start position
+            location.reload();
+        }
+    });
+}
+
 
 function update(){
     for(var z = 0; z<zombies.length; z++){

@@ -6,9 +6,18 @@ canvas {
     display: block;
 }
 
+#partidas{
+	display:inline-block;
+}
+
 .recentlyplayed{
-	height:193.5px;
-	width:416px;
+	height:100px;
+	width:200px;
+}
+
+.optionimage{
+	height:209px !important;
+	width:449px !important;
 }
 
 

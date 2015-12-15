@@ -4,43 +4,36 @@
 	<br>
 	<br>
 	<h2> Tus recién jugados </h2>
-  
-  <% @games_played.each do |g|%>
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <img src=<%=g.url%> alt="...">
-        <div class="caption">
-          <h3>La última batalla</h3>
-          <h5> <%=g.score%> <h5>
-          <p><a href="/game/1" class="btn btn-primary" role="button">Reanudar</a></p>
-        </div>
-      </div>
-    </div>
-  <%end%>
+    <%@games_played.each do |g|%>
+      <img class = "recentlyplayed" src=<%=g.game.url%> alt="...">
+      <p> <%=g.score%> </p>
+      <%= link_to "Borrar", game_game_session_path(g.game.id, g.id), {method: :delete, data: {confirm: "Seguro?"} }%>
 
+      <%= link_to "Reanudar", continue_path(g.game.id, g.score), :method => "PUT" %>
+    <%end%>
 </div>
 
 <h2> Juegos </h2>
 <div class="row">
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="/assets/ultimabatalla.png" alt="...">
+      <img class="optionimage" src="/assets/ultimabatalla.png" alt="...">
       <div class="caption">
         <h3>La última batalla</h3>
         <p>Eres el último que queda de una gran civilización derrotada. Has logrado entrencharte y estás listo para dar tu último combate. Las hordas
         	de zombis no paran de llegar, y ya has internalizado que morirás. Pero, antes de acompañar a tu pueblo en el más allá, has resuelto llevarte a la mayor cantidad
         	posible de tus enemigos!</p>
-        <p><a href="/game/1" class="btn btn-primary" role="button">Jugar</a></p>
+        <p><%=link_to "Jugar", game_path(1), class: "btn btn-primary", role: "button"%></p>
       </div>
     </div>
   </div>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTUxOTc5MzBmZTkgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTE5NzkzMGZlOSI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44NTkzNzUiIHk9IjEwNS4xIj4yNDJ4MjAwPC90ZXh0PjwvZz48L2c+PC9zdmc+" alt="...">
+      <img class="optionimage" src="/assets/test.png" alt="...">
       <div class="caption">
         <h3>Thumbnail label</h3>
         <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+        <p><%=link_to "Jugar", game_path(2), class: "btn btn-primary", role: "button"%></p>
       </div>
     </div>
   </div>

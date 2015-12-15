@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
-  get '/' => 'users#index'
-  get '/users/:id' => 'users#index'
-  get '/game/:id' => 'game#index'
-  post '/save/:id' => 'game#save'
+  root to: 'home#index'
+  resources :users, only: [:show]
+  resources :games do
+  	resources :game_sessions, only: [:create, :destroy, :show]
+  end	
+  put '/continue/:id/:score' => 'games#update', as: :continue
 end
