@@ -6,7 +6,7 @@
   <%@games_played.each do |g| %>
 
   <div class="col-xs-6 col-md-3 saved-games">
-    <a href="#" class="thumbnail">
+    <a href="#" class="thumbnail saved-thumbnails">
       <img class="recentlyplayed" src=<%=g.game.url%>>
       <%= link_to "Borrar", game_game_session_path(g.game.id, g.id), {method: :delete, class: "btn btn-primary", data: {confirm: "Seguro?"} }%>
       <%= link_to "Reanudar", continue_path(g.game.id, g.score, g.id), {method: :put, class: "btn btn-primary"} %>

@@ -16,13 +16,21 @@ canvas {
 
 #saved{
 	background: url("/assets/bg-saved.jpg") !important;
-	padding-left:20px;
-	padding-right:20px;
-	padding-bottom:20px;
+	position:relative;
+	margin-right:5%;
+	margin-left:5%;
+	min-height:200px;
+	height:100%;
 }
-
 .saved-games{
+	margin:5px;
+	margin-left: 5%;
 	background:white;
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
 }
 
 .jumbotron{
@@ -53,7 +61,7 @@ canvas {
 }
 
 .recentlyplayed{
-	height:100px;
+	height:200px;
 	width:200px;
 }
 

@@ -2,6 +2,10 @@
 <% if !@score.nil? %>
 	<p id="saved-score"><%=@score%></p>
 	<p id="saved-session"><%=@session%></p>
+<% else %>
+  <br>
+  <br>
+  <br>
 <%end%>
 <audio autoplay loop>
     <source src="/assets/finalMarch.mp3" type="audio/mpeg">

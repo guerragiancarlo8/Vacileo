@@ -30,7 +30,7 @@ saveButton.addEventListener("click",function(){
             type:'POST',
             url:"/games/2/game_sessions",
             dataType: "json",
-            data: {score_obtained: score},
+            data: {score_obtained: 10},
             success: function(response){
                 console.log('success')
             },
@@ -45,7 +45,7 @@ saveButton.addEventListener("click",function(){
             type: 'PUT',
             url:"/games/2/game_sessions/"+session,
             dataType: "json",
-            data: {score_obtained: score},
+            data: {score_obtained: 10},
             success: function(response){
                 console.log('success');
             },
