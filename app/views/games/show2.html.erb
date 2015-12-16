@@ -2,11 +2,12 @@
   <p id="saved-score"><%=@score%></p>
   <p id="saved-session"><%=@session%></p>
 <%end%>
-<br>
-<br>
 <div class="alert alert-success" role="alert" style="visibility:hidden">Partida Guardada!</div>
-<button id="savebutton" type="submit"> Guardar Partida </button>
-<button id="reloadbutton" type="submit"> Reiniciar </button>
+<button id="savebutton" type="submit" class="btn btn-primary"> Guardar Partida </button>
+<button id="reloadbutton" type="submit" class="btn btn-primary"> Reiniciar </button>
+<a href="#ranking" class="btn btn-primary">Ranking</a>
+<br>
+<br>
 <canvas id="canvasBg" width="800" height="600"></canvas>
 
 <div id="overlapping">
@@ -16,7 +17,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">Mejores Puntuaciones</div>
-  <table class="table">
+  <table class="table" id="ranking">
   	<thead>
   		<tr>
   			<th> #</th>

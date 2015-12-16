@@ -32,8 +32,12 @@ var back = new Image(),
     fps = 60,
     i = 0,
     score = 0,
-    count,
-    session = document.getElementById("saved-session").innerText;
+    count;
+
+if(document.getElementById("saved-session")){
+    var session = document.getElementById("saved-session").innerText;
+}
+
 
 if(document.getElementById("saved-score")){
     console.log('eje')

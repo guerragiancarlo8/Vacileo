@@ -1,14 +1,51 @@
 body {
-    background: #f5f5f5 !important;
+    background: url("/assets/bg-game.jpg") !important;
+
 }
 
 canvas {
     display: block;
 }
+#main-title{
+	margin-left:35%;
+	margin-right:30%;
+	position:absolute;
+	font-family: 'Anton', sans-serif;
+	color:yellow;
+}
+
+#saved{
+	background: url("/assets/bg-saved.jpg") !important;
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:20px;
+}
+
+.saved-games{
+	background:white;
+}
 
 .jumbotron{
 	padding-left:15px !important;
 	padding-right:15px !important;
+	background: #72587F !important;
+	font-family: 'Anton', sans-serif;
+}
+
+.jumbotron p{
+	color:white;
+}
+
+.jumbotron h1{
+	color:white !important;
+}
+
+#logo{
+	width:100px;
+	height:63px;
+	position:absolute;
+	margin-right:30%;
+	margin-left:35%;
 }
 
 #partidas{
@@ -44,7 +81,8 @@ canvas {
 }
 
 .navbar-default{
-	background-color: #add8e6 !important;
+	background: url("/assets/nav-bg.jpg") !important;
+	height:66px !important;
 }
 
 canvas{

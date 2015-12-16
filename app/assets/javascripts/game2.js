@@ -25,18 +25,38 @@ var reloadButton = document.getElementById('reloadbutton');
 
 saveButton.addEventListener("click",function(){
 
-    $.ajax({
-        type:'POST',
-        url:"/games/2/game_sessions",
-        dataType: "json",
-        data: {score_obtained: 10},
-        success: function(response){
-            console.log('eje')
-        },
-        error: function(response){
-            console.log(response)
-        }
-    })
+    if(!document.getElementById("saved-score")){
+        $.ajax({
+            type:'POST',
+            url:"/games/2/game_sessions",
+            dataType: "json",
+            data: {score_obtained: score},
+            success: function(response){
+                console.log('success')
+            },
+            error: function(response){
+                console.log(response)
+            }
+        })
+        $(".alert-success").css("visibility","visible")
+    }
+    else if(document.getElementById("saved-score")){
+        $.ajax({
+            type: 'PUT',
+            url:"/games/2/game_sessions/"+session,
+            dataType: "json",
+            data: {score_obtained: score},
+            success: function(response){
+                console.log('success');
+            },
+            error: function(response){
+                console.log(response);
+            }
+        })
+        $(".alert-success").css("visibility","visible")
+    }
+    //muestra y esconde luego de 2 segundos
+    setTimeout(function(){$(".alert-success").css("visibility","hidden");},2000);
 })
 
 reloadButton.addEventListener("click",function(){

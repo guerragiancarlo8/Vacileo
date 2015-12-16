@@ -27,8 +27,8 @@
   	<% @leaderboard.each_with_index do |l , index| %>
   		<tr>
   			<th scope="row"><%=index%></th>
-  			<td> <%= l.user_id %> </td>
-  			<td> <%= l.score %> </td>
+  			<td> <%= l["email"] %> </td>
+  			<td> <%= l["score"] %> </td>
   		</tr>
   	<%end%>
   	</tbody>

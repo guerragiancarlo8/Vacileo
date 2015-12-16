@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Vacileo</title>
+  <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -10,7 +11,9 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbr-brand" href="/">Vacileo</a>
+			<a class="navbr-brand" href="/">
+				<img id="logo" src="/assets/logo.png">
+			</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
@@ -20,7 +23,7 @@
 				<%if user_signed_in? %>
 						<p>Bienvenido, <strong><%=current_user.email%></strong></p>
 					
-						<%= link_to "Cerrar Sesión",destroy_user_session_path, :method => :delete %>
+						<%= button_to "Cerrar Sesión",destroy_user_session_path, :method => :delete, class: "btn btn-primary" %>
 				<%end%>
 			</ul>
 		</div>
