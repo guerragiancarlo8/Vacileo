@@ -1,16 +1,17 @@
-
-<div id="partidas" style="width:100%;">
-	<br>
-	<br>
-	<br>
-	<h2> Tus recién jugados </h2>
-    <%@games_played.each do |g|%>
-      <img class = "recentlyplayed" src=<%=g.game.url%> alt="...">
-      <p> <%=g.score%> </p>
+<br>
+<br>
+<h2> Tus Partidas Guardadas </h2>
+<div class="row">
+  <%@games_played.each do |g| %>
+  <div class="col-xs-6 col-md-3">
+    <a href="#" class="thumbnail">
+      <img class="recentlyplayed" src=<%=g.game.url%>>
       <%= link_to "Borrar", game_game_session_path(g.game.id, g.id), {method: :delete, data: {confirm: "Seguro?"} }%>
-
-      <%= link_to "Reanudar", continue_path(g.game.id, g.score), :method => "PUT" %>
-    <%end%>
+      <%= link_to "Reanudar", continue_path(g.game.id, g.score, g.id), {method: :put} %>
+      <p> Puntuación: <%= g.score %> </p>
+    </a>
+  </div>
+  <%end%>
 </div>
 
 <h2> Juegos </h2>

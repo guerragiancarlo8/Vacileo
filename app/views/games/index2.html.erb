@@ -5,6 +5,25 @@
 </div>
 <script src="/assets/game2.js"></script>
 
-<% @leaderboard.each do |l| %>
-	<p> <%= l.score %> </p>
-<%end%>
+<div class="panel panel-default">
+  <div class="panel-heading">Mejores Puntuaciones</div>
+  <table class="table">
+  	<thead>
+  		<tr>
+  			<th> #</th>
+  			<th> Usuario </th>
+  			<th> Puntuación </th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  	<% @leaderboard.each_with_index do |l , index| %>
+  		<tr>
+  			<th scope="row"><%=index%></th>
+  			<td> <%= l.user_id %> </td>
+  			<td> <%= l.score %> </td>
+  		</tr>
+  	<%end%>
+  	</tbody>
+  </table>
+</div>
+

@@ -2,7 +2,8 @@
 <html>
 <head>
   <title>Vacileo</title>
-  
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 </head>
 <body>
@@ -16,22 +17,11 @@
 				<!--visit http://getbootstrap.com/examples/navbar-fixed-top/# to see rest -->
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				
 				<%if user_signed_in? %>
-					<li>
-						<p>Bienvenido, <strong><%=current_user.email%></strong>
-					</li>
-					<li>
-						<%= link_to "Log Out",destroy_user_session_path, :method => :delete %>
-					</li>
-				<%else%>
-					<li>
-						<%=link_to "Sign up", new_user_registration_path, :class => 'navbar-link' %>
-					<li>
-					<li>
-						<%= link_to "Login", new_user_session_path, :class => 'navbar-link' %>
-					<li>
-				<%end%>	
+						<p>Bienvenido, <strong><%=current_user.email%></strong></p>
+					
+						<%= link_to "Cerrar Sesión",destroy_user_session_path, :method => :delete %>
+				<%end%>
 			</ul>
 		</div>
 	</div>
@@ -40,6 +30,4 @@
 <%= yield %>
 
 </body>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
 </html>

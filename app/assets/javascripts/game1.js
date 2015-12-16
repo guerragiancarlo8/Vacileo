@@ -32,7 +32,8 @@ var back = new Image(),
     fps = 60,
     i = 0,
     score = 0,
-    count;
+    count,
+    session = document.getElementById("saved-session").innerText;
 
 if(document.getElementById("saved-score")){
     console.log('eje')
@@ -45,6 +46,7 @@ if(document.getElementById("saved-score")){
         score = 0;
     }
 }
+
 
 function loadSpriteSheets(){
     spritesheetgolemleft = new SpriteSheet('/assets/golem_walkleft.png',470,360,1500,6,ctxEntities,false);
@@ -60,18 +62,39 @@ function loadSpriteSheets(){
 if(saveButton){
     saveButton.addEventListener("click",function(){
         if(golem.isDead){
-            $.ajax({
-                type:'POST',
-                url:"/games/1/game_sessions",
-                dataType: "json",
-                data: {score_obtained: score},
-                success: function(response){
-                    console.log('eje')
-                },
-                error: function(response){
-                    console.log(response)
-                }
-            })
+            if(!document.getElementById("saved-score")){
+                $.ajax({
+                    type:'POST',
+                    url:"/games/1/game_sessions",
+                    dataType: "json",
+                    data: {score_obtained: score},
+                    success: function(response){
+                        console.log('success')
+                    },
+                    error: function(response){
+                        console.log(response)
+                    }
+                })
+                $(".alert-success").css("visibility","visible")
+            }
+            else if(document.getElementById("saved-score")){
+                $.ajax({
+                    type: 'PUT',
+                    url:"/games/1/game_sessions/"+session,
+                    dataType: "json",
+                    data: {score_obtained: score},
+                    success: function(response){
+                        console.log('success');
+                    },
+                    error: function(response){
+                        console.log(response);
+                    }
+                })
+                $(".alert-success").css("visibility","visible")
+            }
+            golem.isDead = false;
+            //muestra y esconde luego de 2 segundos
+            setTimeout(function(){$(".alert-success").css("visibility","hidden");},2000);
         }
     })
 
@@ -176,10 +199,11 @@ function exit(){
 if(reloadButton){
 
     reloadButton.addEventListener("click",function(){
-        if(golem.isDead){
+
+        
             //reset golem to start position
-            location.reload();
-        }
+        location.reload();
+        
     });
 }
 

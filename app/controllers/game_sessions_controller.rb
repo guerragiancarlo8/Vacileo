@@ -12,4 +12,10 @@ class GameSessionsController < ApplicationController
 		redirect_to user_path(current_user)
 	end
 
+	def update
+		session_to_update = GameSession.find_by(id: params[:id])
+		if session_to_update.update(:score => params[:score_obtained])
+			render :nothing => true, :status => 200
+		end
+	end
 end

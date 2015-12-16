@@ -6,6 +6,11 @@ canvas {
     display: block;
 }
 
+.jumbotron{
+	padding-left:15px !important;
+	padding-right:15px !important;
+}
+
 #partidas{
 	display:inline-block;
 }
@@ -46,3 +51,4 @@ canvas{
 	margin-left:50px;
 	margin-top:20px;
 }
+

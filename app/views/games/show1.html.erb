@@ -1,29 +1,41 @@
 <!-- la última batalla usuario conectado -->
-<% if !@selected_game.nil? %>
-	<% @selected_game.each do |g| %>
-		<p id="saved-score"><%=g.score%></p>
-	<%end%>
+<% if !@score.nil? %>
+	<p id="saved-score"><%=@score%></p>
+	<p id="saved-session"><%=@session%></p>
 <%end%>
-
 <audio autoplay loop>
     <source src="/assets/finalMarch.mp3" type="audio/mpeg">
 </audio>
+<div class="alert alert-success" role="alert" style="visibility:hidden">Partida Guardada!</div>
+<button id="savebutton" type="submit"> Guardar Partida </button>
+<button id="reloadbutton" type="submit"> Reiniciar </button>
 <canvas id="canvasTest" width="1280" height="600"></canvas>
-
 <div id="overlapping">
     <canvas id="canvasEntities2" width="1280" height="600"></canvas>
-    <canvas id="canvasDead" width="1280" height="600">EJE</canvas>
+    <canvas id="canvasDead" width="1280" height="600"></canvas>
     <canvas id="canvasScore" width="1280" height = "600"></canvas>
     <canvas id="canvasSeconds" width="1280" height = "600"></canvas>
 </div>
-
-
-<button id="savebutton" type="submit"> Guardar Partida </button>
-<button id="reloadbutton" type="submit"> Reiniciar </button>
 <script src="/assets/game1.js"></script>
-
-<% @leaderboard.each do |l| %>
-	<p> <%= l.score %> </p>
-	<p> <%= l.user_id %> </p>
-<%end%>
+<div class="panel panel-default">
+  <div class="panel-heading">Mejores Puntuaciones</div>
+  <table class="table">
+  	<thead>
+  		<tr>
+  			<th> #</th>
+  			<th> Usuario </th>
+  			<th> Puntuación </th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  	<% @leaderboard.each_with_index do |l , index| %>
+  		<tr>
+  			<th scope="row"><%=index+1%></th>
+  			<td> <%= l["email"] %> </td>
+  			<td> <%= l["score"] %> </td>
+  		</tr>
+  	<%end%>
+  	</tbody>
+  </table>
+</div>
 
