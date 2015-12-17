@@ -23,6 +23,18 @@ imgSprite.addEventListener("load", init, false);
 var saveButton = document.getElementById("savebutton");
 var reloadButton = document.getElementById('reloadbutton');
 
+var oldUrl = document.referrer
+window.onbeforeunload = function(){
+    //window.location.replace(oldUrl);
+    return "Si estás utilizando el botón 'back' del navegador, tu partida no se reflejará en la página de usuario" +
+    "si estás utilizando el botón de atrás, ignora este mensaje";
+}
+
+document.getElementById("backbutton").addEventListener("click",function(){
+    window.location.replace(oldUrl);
+
+})
+
 saveButton.addEventListener("click",function(){
 
     if(!document.getElementById("saved-score")){
@@ -60,7 +72,6 @@ saveButton.addEventListener("click",function(){
 })
 
 reloadButton.addEventListener("click",function(){
-
         //reset golem to start position
     location.reload();
 
@@ -106,8 +117,6 @@ function clearCtx(ctx) {
 function randomRange (min, max) {
     return Math.floor(Math.random() * (max + 1 - min)) + min;
 }
-
-
 
 function Player() {
     this.srcX = 0;
@@ -163,7 +172,6 @@ Player.prototype.checkDirection = function () {
         newDrawX -= this.speed;
         this.srcX = 70; // Facing west
     }
-
     obstacleCollision = this.checkObstacleCollide(newDrawX, newDrawY);
 
     if (!obstacleCollision && !outOfBounds(this, newDrawX, newDrawY)) {
@@ -221,15 +229,6 @@ Player.prototype.drawAllBullets = function () {
         }
     }
 };
-
-
-
-
-
-
-
-
-
 
 function Bullet() {
     this.radius = 2;
@@ -410,7 +409,6 @@ Enemy.prototype.die = function () {
     this.isDead = true;
 };
 
-
 function initEnemies() {
     for (var i = 0; i < numEnemies; i++) {
         enemies[enemies.length] = new Enemy();
@@ -428,10 +426,6 @@ function drawAllEnemies() {
         enemies[i].draw();
     }
 }
-
-
-
-
 
 function checkKey(e, value) {
     var keyID = e.keyCode || e.which;

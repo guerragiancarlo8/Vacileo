@@ -14,6 +14,18 @@ canvas {
 	color:yellow;
 }
 
+#games{
+	margin-left:5%;
+	margin-right:5%;
+}
+
+#games h2{
+	color:white;
+	display:block;
+	margin-left: 45%;
+	margin-right:40%;
+}
+
 #saved{
 	background: url("/assets/bg-saved.jpg") !important;
 	position:relative;
@@ -21,6 +33,13 @@ canvas {
 	margin-left:5%;
 	min-height:200px;
 	height:100%;
+}
+
+#saved h2{
+	color:white;
+	display:block;
+	margin-left: 35%;
+	margin-right: 35%;
 }
 .saved-games{
 	margin:5px;

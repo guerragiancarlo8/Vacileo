@@ -38,6 +38,16 @@ if(document.getElementById("saved-session")){
     var session = document.getElementById("saved-session").innerText;
 }
 
+var oldUrl = document.referrer
+window.onbeforeunload = function(){
+    return "Si estás utilizando el botón 'back' del navegador, tu partida no se reflejará en la página de usuario" +
+    "si estás utilizando el botón de atrás, ignora este mensaje";
+}
+
+document.getElementById("backbutton").addEventListener("click",function(){
+    window.location.replace(oldUrl);
+
+})
 
 if(document.getElementById("saved-score")){
     console.log('eje')
@@ -50,7 +60,6 @@ if(document.getElementById("saved-score")){
         score = 0;
     }
 }
-
 
 function loadSpriteSheets(){
     spritesheetgolemleft = new SpriteSheet('/assets/golem_walkleft.png',470,360,1500,6,ctxEntities,false);
@@ -104,7 +113,6 @@ if(saveButton){
 
 }
 
-
 function getScore(){
     $.ajax({
         type: "GET",
@@ -112,8 +120,6 @@ function getScore(){
         url: "/"
     })
 } 
-
-
 
 var seconds = 0
 var isPlaying = true;
@@ -132,7 +138,6 @@ function randomRange(min,max){
     return Math.floor(Math.random() * (max + 1 - min)) + min;
 }
 
-
 function setTime(){
     ++seconds;
     clearCtx(ctxSeconds);
@@ -145,8 +150,6 @@ function init(){
     document.addEventListener("keyup",function(e){checkKey(e,false);},false);
     initZombies(5);
     begin();
-
-
 }
 
 function initZombies(howmany){
@@ -167,7 +170,6 @@ function initZombies(howmany){
             }
         }       
     }
-
     console.log(zombies);
 }
 function begin(){
@@ -196,18 +198,12 @@ function exit(){
     i++;
     golem.isDead = true;
     
-    //console.log(i); 
 }
-
 //enable reload button if it exists
 if(reloadButton){
-
     reloadButton.addEventListener("click",function(){
-
-        
             //reset golem to start position
         location.reload();
-        
     });
 }
 
@@ -248,9 +244,7 @@ function checkAllDead(){
 }
 
 function draw(){
-    //drawZombies();
     golem.draw();
-    //zombie.draw();
     for(var z = 0; z<zombies.length; z++){
         zombies[z].draw();
     }
@@ -307,9 +301,6 @@ function SpriteSheet(path, frameWidth, frameHeight, frameSpeed, endFrame,ctx,onc
             x,y,
             frameWidth, frameHeight);
     };
-
-    
-    
 };
 
 function Golem(){
@@ -393,7 +384,6 @@ Golem.prototype.checkMovement = function(){
     else if(this.isRightKey){
         this.drawX += this.speed;
     }
-    
 }
 
 function collision(a, b){
@@ -426,8 +416,6 @@ Zombie.prototype.death = function(){
     this.isDead = true;
     console.log('should erase');
 }
-
-
 
 Zombie.prototype.update = function(){
     //check if a key has been pressed.
@@ -463,14 +451,12 @@ function Bullet(){
 Bullet.prototype.update = function(){
     this.drawX += this.xVel;
     this.checkHitEnemy()
-    //this.checkHitEnemy
 }
 
 Bullet.prototype.draw = function(){
     ctxEntities.fillStyle = "white";
     ctxEntities.beginPath();
-    ctxEntities.arc(this.drawX, this.drawY, this.radius,
-                    0, Math.PI*2, false);
+    ctxEntities.arc(this.drawX, this.drawY, this.radius, 0, Math.PI*2, false);
     ctxEntities.closePath();
     ctxEntities.fill();
 }
