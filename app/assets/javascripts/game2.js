@@ -24,7 +24,10 @@ var saveButton = document.getElementById("savebutton");
 var reloadButton = document.getElementById('reloadbutton');
 
 var oldUrl = document.referrer
-
+var oldUrl = "http://localhost:3000/users/"+user.innerText
+if(document.getElementById("saved-session")){
+    var session = document.getElementById("saved-session").innerText;
+}
 
 if(document.getElementById("backbutton")){
     window.onbeforeunload = function(){
@@ -61,6 +64,7 @@ if(saveButton && reloadButton){
                 dataType: "json",
                 data: {score_obtained: 10},
                 success: function(response){
+                    $(".alert-success").css("visibility","visible")
                     console.log('success');
                 },
                 error: function(response){

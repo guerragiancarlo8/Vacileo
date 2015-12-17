@@ -32,21 +32,24 @@ var back = new Image(),
     fps = 60,
     i = 0,
     score = 0,
-    count;
+    count,
+    previousUlr,
+    user = document.getElementById("user");
 
 if(document.getElementById("saved-session")){
     var session = document.getElementById("saved-session").innerText;
 }
 
 var oldUrl = document.referrer
-console.log(oldUrl)
+var oldUrl = "http://localhost:3000/users/"+user.innerText
+
+console.log()
 if(oldUrl != "http://localhost:3000/"){
     window.onbeforeunload = function(){
         return "Si estás utilizando el botón 'back' del navegador, tu partida no se reflejará en la página de usuario" +
         "si estás utilizando el botón de atrás, ignora este mensaje";
     }
 }
-
 
 if(document.getElementById("backbutton")){
     document.getElementById("backbutton").addEventListener("click",function(){
@@ -118,14 +121,6 @@ if(saveButton){
     })
 
 }
-
-function getScore(){
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: "/"
-    })
-} 
 
 var seconds = 0
 var isPlaying = true;
@@ -209,7 +204,9 @@ function exit(){
 if(reloadButton){
     reloadButton.addEventListener("click",function(){
             //reset golem to start position
+        previousUlr = oldUrl
         location.reload();
+        oldUrl = previousUlr;
     });
 }
 

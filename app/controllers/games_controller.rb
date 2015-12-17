@@ -13,18 +13,11 @@ class GamesController < ApplicationController
 	end
 
 	def update
-		#replace the previous gamestate with new gamestate
-		#@selected_game = Game.find(params[:id]).game_sessions.select("score").where(score: params[:score])
-=begin
-		if(@@previous_score < @selected_game.pluck(:score)[0])
-			session_to_destroy = GameSession.find_by(game_id: params[:id], score: @@previous_score)
-			session_to_destroy.destroy
-		end
-=end
 		sql = "SELECT users.email, game_sessions.score FROM users JOIN game_sessions ON users.id = game_sessions.user_id where game_sessions.game_id = "+params[:game_id]+" ORDER BY score DESC"
 		@leaderboard = ActiveRecord::Base.connection.execute(sql)
 		@score = params[:score]
 		@session = params[:session_id]
+		@user = current_user.id
 		render 'show'+params[:game_id]
 	end
 
