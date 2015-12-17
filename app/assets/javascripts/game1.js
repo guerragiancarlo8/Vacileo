@@ -39,15 +39,21 @@ if(document.getElementById("saved-session")){
 }
 
 var oldUrl = document.referrer
-window.onbeforeunload = function(){
-    return "Si estás utilizando el botón 'back' del navegador, tu partida no se reflejará en la página de usuario" +
-    "si estás utilizando el botón de atrás, ignora este mensaje";
+console.log(oldUrl)
+if(oldUrl != "http://localhost:3000/"){
+    window.onbeforeunload = function(){
+        return "Si estás utilizando el botón 'back' del navegador, tu partida no se reflejará en la página de usuario" +
+        "si estás utilizando el botón de atrás, ignora este mensaje";
+    }
 }
 
-document.getElementById("backbutton").addEventListener("click",function(){
-    window.location.replace(oldUrl);
 
-})
+if(document.getElementById("backbutton")){
+    document.getElementById("backbutton").addEventListener("click",function(){
+        window.location.replace(oldUrl);
+    })
+}
+
 
 if(document.getElementById("saved-score")){
     console.log('eje')

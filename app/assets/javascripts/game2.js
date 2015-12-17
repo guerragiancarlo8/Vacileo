@@ -24,58 +24,61 @@ var saveButton = document.getElementById("savebutton");
 var reloadButton = document.getElementById('reloadbutton');
 
 var oldUrl = document.referrer
-window.onbeforeunload = function(){
+
+
+if(document.getElementById("backbutton")){
+    window.onbeforeunload = function(){
     //window.location.replace(oldUrl);
-    return "Si estás utilizando el botón 'back' del navegador, tu partida no se reflejará en la página de usuario" +
-    "si estás utilizando el botón de atrás, ignora este mensaje";
+        return "Si estás utilizando el botón 'back' del navegador, tu partida no se reflejará en la página de usuario" +
+        "si estás utilizando el botón de atrás, ignora este mensaje";
+    }
+    document.getElementById("backbutton").addEventListener("click",function(){
+        window.location.replace(oldUrl);
+    })
 }
 
-document.getElementById("backbutton").addEventListener("click",function(){
-    window.location.replace(oldUrl);
+if(saveButton && reloadButton){
+    saveButton.addEventListener("click",function(){
+        if(!document.getElementById("saved-score")){
+            $.ajax({
+                type:'POST',
+                url:"/games/2/game_sessions",
+                dataType: "json",
+                data: {score_obtained: 10},
+                success: function(response){
+                    console.log('success')
+                },
+                error: function(response){
+                    console.log(response)
+                }
+            })
+            $(".alert-success").css("visibility","visible")
+        }
+        else if(document.getElementById("saved-score")){
+            $.ajax({
+                type: 'PUT',
+                url:"/games/2/game_sessions/"+session,
+                dataType: "json",
+                data: {score_obtained: 10},
+                success: function(response){
+                    console.log('success');
+                },
+                error: function(response){
+                    console.log(response);
+                }
+            })
+            $(".alert-success").css("visibility","visible")
+        }
+        //muestra y esconde luego de 2 segundos
+        setTimeout(function(){$(".alert-success").css("visibility","hidden");},2000);
+    })
 
-})
+    reloadButton.addEventListener("click",function(){
+            //reset golem to start position
+        location.reload();
+    });
+}
 
-saveButton.addEventListener("click",function(){
-
-    if(!document.getElementById("saved-score")){
-        $.ajax({
-            type:'POST',
-            url:"/games/2/game_sessions",
-            dataType: "json",
-            data: {score_obtained: 10},
-            success: function(response){
-                console.log('success')
-            },
-            error: function(response){
-                console.log(response)
-            }
-        })
-        $(".alert-success").css("visibility","visible")
-    }
-    else if(document.getElementById("saved-score")){
-        $.ajax({
-            type: 'PUT',
-            url:"/games/2/game_sessions/"+session,
-            dataType: "json",
-            data: {score_obtained: 10},
-            success: function(response){
-                console.log('success');
-            },
-            error: function(response){
-                console.log(response);
-            }
-        })
-        $(".alert-success").css("visibility","visible")
-    }
-    //muestra y esconde luego de 2 segundos
-    setTimeout(function(){$(".alert-success").css("visibility","hidden");},2000);
-})
-
-reloadButton.addEventListener("click",function(){
-        //reset golem to start position
-    location.reload();
-
-});
 
 function init() {
     document.addEventListener("keydown", function(e) {checkKey(e, true);}, false);
