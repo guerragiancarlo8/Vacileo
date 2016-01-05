@@ -41,7 +41,10 @@ if(document.getElementById("saved-session")){
 }
 
 var oldUrl = document.referrer
-var oldUrl = "http://localhost:3000/users/"+user.innerText
+if(user){
+    var oldUrl = "http://localhost:3000/users/"+user.innerText
+}
+
 
 console.log()
 if(oldUrl != "http://localhost:3000/"){
